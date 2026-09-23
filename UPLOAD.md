@@ -1,4 +1,4 @@
-﻿# 上传说明（本地已就绪）
+# 上传说明（本地已就绪）
 
 仓库：https://github.com/leocodelab/ez-desktop-shell  
 本地路径：`D:\code\ez-desktop-shell`  
