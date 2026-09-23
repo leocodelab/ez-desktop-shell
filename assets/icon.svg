@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="108" ry="108" fill="#0a0a0a"/>
+  <!-- E: vertical bar + 3 arms -->
+  <g fill="#f5f5f5">
+    <rect x="118" y="148" width="48" height="216" rx="8"/>
+    <rect x="118" y="148" width="140" height="44" rx="8"/>
+    <rect x="118" y="234" width="118" height="44" rx="8"/>
+    <rect x="118" y="320" width="140" height="44" rx="8"/>
+    <!-- Z -->
+    <rect x="278" y="148" width="116" height="44" rx="8"/>
+    <rect x="278" y="320" width="116" height="44" rx="8"/>
+    <!-- Z diagonal as thick parallelogram via path -->
+    <path d="M378 192 L310 320 L278 320 L346 192 Z"/>
+  </g>
+</svg>

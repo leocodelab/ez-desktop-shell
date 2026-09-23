@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EZ Desktop Shell — Offline</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #22d3ee;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(ellipse at top, #1e293b 0%, var(--bg) 60%);
+      color: var(--text);
+      padding: 24px;
+    }
+    .card {
+      max-width: 560px;
+      width: 100%;
+      background: var(--card);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(34,211,238,.4);
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 16px;
+    }
+    h1 { margin: 0 0 12px; font-size: 1.5rem; }
+    p { margin: 0 0 12px; line-height: 1.55; color: var(--muted); }
+    .zh { margin-top: 20px; padding-top: 20px; border-top: 1px solid #334155; }
+    button {
+      margin-top: 8px;
+      background: var(--accent);
+      color: #0f172a;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { filter: brightness(1.05); }
+    code { color: #f8fafc; background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: .9em; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge">Unofficial shell · 非官方壳</div>
+    <h1>Network required (first time)</h1>
+    <p>
+      This app is only a desktop shell. It loads the official web configurator at
+      <code>https://ez.iqunix.com/</code>. A first online visit is needed so Chromium can
+      cache pages under Electron <code>userData</code>. No site assets are bundled in this portable app.
+    </p>
+    <p>
+      Connect to the internet, then click Retry. After that, later offline use may work from
+      the local HTTP cache when the site’s cache headers allow it.
+    </p>
+    <button type="button" id="retry">Retry / 重试</button>
+
+    <div class="zh">
+      <h1>首次需要联网</h1>
+      <p>
+        本程序仅为桌面外壳，会加载官方网页配置器 <code>https://ez.iqunix.com/</code>。
+        便携版<strong>不包含</strong>该网站的任何资源；请至少成功在线打开一次，以便缓存在本机
+        Electron <code>userData</code> 目录。
+      </p>
+      <p>
+        请连接网络后点击「重试」。之后在站点允许缓存的情况下，离线时可能仍可使用已缓存内容。
+      </p>
+    </div>
+  </main>
+  <script>
+    document.getElementById('retry').addEventListener('click', function () {
+      location.href = 'https://ez.iqunix.com/';
+    });
+  </script>
+</body>
+</html>

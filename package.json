@@ -1,0 +1,61 @@
+{
+  "name": "ez-desktop-shell",
+  "productName": "EZ Desktop Shell",
+  "version": "1.1.0",
+  "description": "Unofficial portable Electron desktop shell for the IQUNIX EZ web keyboard configurator (https://ez.iqunix.com/). Not affiliated with IQUNIX.",
+  "main": "src/main.js",
+  "author": "Leo Code Lab",
+  "license": "MIT",
+  "homepage": "https://github.com/leocodelab/ez-desktop-shell",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable",
+    "build": "electron-builder --win --dir"
+  },
+  "build": {
+    "appId": "com.leocodelab.ez-desktop-shell",
+    "productName": "EZ Desktop Shell",
+    "copyright": "Copyright © 2026 Leo Code Lab",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "src/**/*",
+      "offline/**/*",
+      "assets/icon.*",
+      "package.json",
+      "LICENSE",
+      "README.md"
+    ],
+    "asar": true,
+    "forceCodeSigning": false,
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "signAndEditExecutable": false,
+      "signDlls": false
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-portable.${ext}"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "leocodelab",
+        "repo": "ez-desktop-shell"
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^34.5.8",
+    "electron-builder": "^25.1.8"
+  }
+}
