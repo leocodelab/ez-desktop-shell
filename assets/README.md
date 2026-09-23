@@ -1,3 +1,1 @@
-# Assets
-
-Black squircle (large rounded corners, transparent outside) + soft white **EZ**. Not IQUNIX logos.
+Black squircle + soft white EZ. Multi-size PNG/ICO; 16-32 pixel-tuned for tray/taskbar.

@@ -184,17 +184,54 @@ function flushSaveBounds() {
   saveBounds();
 }
 
-function iconPath() {
-  const candidates = [
-    path.join(__dirname, '..', 'assets', 'icon.ico'),
-    path.join(__dirname, '..', 'assets', 'icon.png'),
-    path.join(process.resourcesPath || '', 'assets', 'icon.ico'),
-    path.join(process.resourcesPath || '', 'assets', 'icon.png')
+function assetCandidates(fileName) {
+  return [
+    path.join(__dirname, '..', 'assets', fileName),
+    path.join(process.resourcesPath || '', 'assets', fileName)
   ];
-  for (const p of candidates) {
+}
+
+function firstExisting(paths) {
+  for (const p of paths) {
     if (p && fs.existsSync(p)) return p;
   }
   return null;
+}
+
+function iconPath() {
+  return firstExisting([
+    ...assetCandidates('icon.ico'),
+    ...assetCandidates('icon.png')
+  ]);
+}
+
+/** Prefer a crisp PNG sized for the current display scale (tray/taskbar). */
+function trayIconPath() {
+  let scale = 1;
+  try {
+    scale = screen.getPrimaryDisplay().scaleFactor || 1;
+  } catch {
+    scale = 1;
+  }
+  const target = Math.round(16 * scale);
+  const sizes = [16, 20, 24, 32, 48, 64];
+  let best = sizes[0];
+  let bestDist = Math.abs(best - target);
+  for (const s of sizes) {
+    const d = Math.abs(s - target);
+    if (d < bestDist) {
+      best = s;
+      bestDist = d;
+    }
+  }
+  const sized = firstExisting(assetCandidates(`icon-${best}.png`));
+  if (sized) return sized;
+  return firstExisting([
+    ...assetCandidates('icon-32.png'),
+    ...assetCandidates('icon-16.png'),
+    ...assetCandidates('icon.png'),
+    ...assetCandidates('icon.ico')
+  ]);
 }
 
 function createNativeIcon() {
@@ -202,6 +239,19 @@ function createNativeIcon() {
   if (!p) return nativeImage.createEmpty();
   const img = nativeImage.createFromPath(p);
   return img.isEmpty() ? nativeImage.createEmpty() : img;
+}
+
+function createTrayIcon() {
+  const p = trayIconPath();
+  if (!p) return nativeImage.createEmpty();
+  let img = nativeImage.createFromPath(p);
+  if (img.isEmpty()) return nativeImage.createEmpty();
+  // Keep bitmap at its designed pixel size; avoid Electron resizing a large ICO down.
+  const { width, height } = img.getSize();
+  if (width > 64 || height > 64) {
+    img = img.resize({ width: 32, height: 32, quality: 'best' });
+  }
+  return img;
 }
 
 function offlinePageUrl() {
@@ -798,7 +848,7 @@ function buildTrayMenu() {
 }
 
 function createTray() {
-  const image = createNativeIcon();
+  const image = createTrayIcon();
   tray = new Tray(image.isEmpty() ? nativeImage.createEmpty() : image);
   tray.setToolTip('EZ Desktop Shell（非官方）');
   tray.setContextMenu(buildTrayMenu());

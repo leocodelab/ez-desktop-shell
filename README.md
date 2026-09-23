@@ -2,50 +2,52 @@
 
 [中文](#中文) · [English](#english)
 
-Unofficial portable Electron shell for the IQUNIX EZ web keyboard configurator.  
-非官方便携版 Electron 外壳，用于打开 IQUNIX EZ 键盘网页配置器。
+用 Electron 打开 [IQUNIX EZ 网页配置器](https://ez.iqunix.com/) 的 **Windows 便携外壳**（非官方）。  
+Unofficial **Windows portable** Electron shell for the IQUNIX EZ web configurator.
 
-> **Not affiliated with IQUNIX.** · **与 IQUNIX 无关；非官方、非授权、非附属。**
+> **与 IQUNIX 无关：非官方、非授权、非附属。** · **Not affiliated with IQUNIX.**
 
 | | |
 | --- | --- |
-| GitHub | https://github.com/leocodelab/ez-desktop-shell |
-| Releases | https://github.com/leocodelab/ez-desktop-shell/releases |
-| Latest release | [v1.1.1](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1) |
-| Product name | EZ Desktop Shell |
-| Version | 1.1.1 |
-| Platform | Windows x64 portable (`.exe`) |
-| Upstream site | https://ez.iqunix.com/ |
-| License | MIT + project notices below |
+| 下载 / Download | [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) |
+| 最新版 / Latest | [Releases](https://github.com/leocodelab/ez-desktop-shell/releases/latest)（当前 v1.1.1） |
+| 源码 / Repo | https://github.com/leocodelab/ez-desktop-shell |
+| 配置站 / Site | https://ez.iqunix.com/ |
+| 许可 / License | MIT + 下方声明 |
 
 ---
 
 ## 中文
 
-### 这是什么
+### 一句话说明
 
-本项目是一个**轻量桌面外壳**：用 Electron 打开 [IQUNIX EZ 网页配置器](https://ez.iqunix.com/)，并提供系统托盘、开机启动、离线提示、WebHID 授权通道、便携打包与可选的 GitHub 更新检查。
+这是一个**轻量桌面壳**：双击运行后加载 `ez.iqunix.com`，并附带托盘、开机启动、离线提示、WebHID 选设备通道，以及可选的 GitHub 自动更新。  
+它**不是** IQUNIX 官方客户端，也**不包含**官方安装包、固件、驱动或官网网页资源。
 
-- **不包含** IQUNIX 官方客户端、安装包、固件、驱动，也不捆绑网页静态资源到仓库。
-- **不逆向、不破解** 官方协议或固件；不含任何 IQUNIX 商标素材；本仓库图标为自绘黑白「EZ」标记。
-- 配置功能、设备通信、账号相关均由 **ez.iqunix.com 及其运营方** 提供与处理；本仓库作者不运营该网站。
+### 快速使用
 
-### 功能
+1. 打开 [Releases](https://github.com/leocodelab/ez-desktop-shell/releases)，下载文件名含 `portable.exe` 的便携包  
+   （GitHub 可能把空格显示成点，例如 `EZ.Desktop.Shell-*-portable.exe`）。
+2. 放到任意目录，双击运行；若出现 SmartScreen，选择「仍要运行」。
+3. 需要能访问 `https://ez.iqunix.com/`。
 
-1. 联网时加载 `https://ez.iqunix.com/`；窗口约 1280×800 起，默认最大化。
-2. 系统托盘（关闭进托盘）、开机启动、刷新/清缓存、重新加载、「检查更新」、退出（简体中文菜单）。
-3. `--hidden` 仅托盘启动，便于开机自启。
-4. 为网页端 WebHID 选设备提供权限桥接。
-5. 离线时显示本地 `offline/offline.html` 提示页（非官网镜像）。
-6. **仅 Windows 便携版**（无安装程序）。
+**更新：** 先完全退出托盘进程，再替换 exe；或使用托盘「检查更新」（有 GitHub Release 后，启动约 8 秒也会静默检查）。
 
-### 如何使用（另一台电脑）
+### 能做什么 / 不能做什么
 
-1. 从 [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) 下载便携包（文件名含 `portable.exe`；GitHub 可能把空格显示成点号，例如 `EZ.Desktop.Shell-1.1.1-portable.exe`）。
-2. 放到任意目录，双击运行；若触发 SmartScreen，选择「仍要运行」。
-3. 需能访问 `https://ez.iqunix.com/`。
+**可以：**
 
-更新方式：先完全退出托盘进程，再替换 exe **或** 打开托盘「检查更新」（存在 GitHub Releases 后约 8 秒也会默默检查并自动替换）。
+- 联网加载官网配置页；窗口默认最大化
+- 系统托盘（关闭进托盘）、开机启动、`--hidden` 仅托盘启动
+- 刷新 / 清缓存 / 重新加载 / 检查更新 / 退出（简体中文菜单）
+- 为网页端 WebHID 选设备提供权限桥接
+- 离线时显示本地提示页（不是官网镜像）
+
+**不会 / 不做：**
+
+- 不附带 IQUNIX 商标素材或官方资源（图标为自绘黑白「EZ」）
+- 不逆向、不破解官方协议或固件
+- 不运营 `ez.iqunix.com`；配置、设备通信、账号均由该站及其运营方处理
 
 ### 开发与打包
 
@@ -56,32 +58,21 @@ npm start
 npm run dist
 ```
 
-产物：`dist\EZ Desktop Shell-<version>-portable.exe`。
+产物：`dist\EZ Desktop Shell-<version>-portable.exe`（仅便携版，无安装程序）。
 
-若 exe 文件图标未更新，可对 `dist\win-unpacked\EZ Desktop Shell.exe` 使用 `tools\rcedit-x64.exe` 写入 `assets\icon.ico`（不要直接 rcedit 便携 stub）。
+可选：对 `dist\win-unpacked\EZ Desktop Shell.exe` 用 `tools\rcedit-x64.exe` 写入 `assets\icon.ico`（不要直接 rcedit 便携 stub）。
 
-### 目录说明
+### 目录与发版
 
 | 路径 | 说明 |
 | --- | --- |
 | `src/main.js` | Electron 主进程 |
-| `src/updater.js` | GitHub Releases 检查更新与便携替换 |
-| `assets/` | 自绘黑白 EZ 图标 |
+| `src/updater.js` | GitHub Releases 更新与便携替换 |
+| `assets/` | 自绘多尺寸 EZ 图标 |
 | `offline/` | 离线提示页 |
-| `dist/` | 构建产物（不入库） |
-| `tools/rcedit-x64.exe` | 可选：写入图标用 |
-| `UPLOAD.md` | 本地推送 / 发版备忘 |
+| `UPLOAD.md` | 推送 / 发版备忘 |
 
-### 发布到 GitHub
-
-仓库与首个 Release 已就绪：[`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell)、[`v1.1.1`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1)。
-
-后续版本建议流程：
-
-1. 修改 `package.json` 的 `version` 并重新 `npm run dist`。
-2. 推送源码到 `main`（不要提交 `dist/`、`node_modules/`）。
-3. 新建 Release（说明建议中英双语），上传 `*-portable.exe`；资源名需含 `portable.exe`，自动更新才能识别。
-4. Tag 建议 `vX.Y.Z`，与 `package.json` 版本一致。
+发新版本：改 `package.json` 的 `version` → `npm run dist` → 推送源码（勿提交 `dist/`、`node_modules/`）→ 建 Release（建议中英双语）并上传 `*-portable.exe`（文件名需含 `portable.exe`），Tag 建议 `vX.Y.Z`。
 
 ---
 
@@ -127,32 +118,27 @@ npm run dist
 
 ## English
 
-### What this is
+### In short
 
-A **thin desktop shell** that opens the [IQUNIX EZ web configurator](https://ez.iqunix.com/) in Electron, with tray, login autostart, offline notice page, WebHID permission bridging, portable packaging, and optional GitHub release update checks.
+A **thin desktop shell** that opens [ez.iqunix.com](https://ez.iqunix.com/) in Electron, with tray, login autostart, offline notice, WebHID permission bridging, and optional GitHub update checks.
 
-- Does **not** ship IQUNIX official apps, installers, firmware, drivers, or bundled copies of their website assets.
-- Does **not** reverse-engineer proprietary protocols or firmware; icons are an original B&W “EZ” mark for this shell only.
-- Configuration features and device traffic are provided by **ez.iqunix.com and its operators**; this project does not operate that site.
+It is **not** an official IQUNIX app and does **not** ship official installers, firmware, drivers, or bundled website assets.
 
-### Features
+### Quick start
 
-1. Loads `https://ez.iqunix.com/` when online; ~1280×800 minimum; maximized by default.
-2. Tray (close-to-tray), open at login, refresh/clear cache, reload, check for updates, quit (Simplified Chinese menu).
-3. `--hidden` tray-only launch for autostart.
-4. WebHID permission plumbing for the embedded site.
-5. Offline fallback page under `offline/` (not a mirror of the official site).
-6. **Windows portable only** (no installer).
-
-### Use on another PC
-
-1. Download the portable build from [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) (filename contains `portable.exe`; GitHub may show spaces as dots, e.g. `EZ.Desktop.Shell-1.1.1-portable.exe`).
+1. Download the `portable.exe` build from [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) (GitHub may show spaces as dots).
 2. Run it from any folder (SmartScreen may require “Run anyway”).
 3. Network access to `https://ez.iqunix.com/` is required.
 
-Updates: quit the tray app and replace the exe, or use **Check for updates** once GitHub Releases exist (a silent check also runs ~8s after launch).
+**Updates:** quit the tray app and replace the exe, or use **Check for updates** (a silent check also runs ~8s after launch once Releases exist).
 
-### Develop / package
+### Scope
+
+**Does:** load the official configurator page; tray / autostart / `--hidden`; WebHID permission plumbing; local offline notice page; Windows portable only.
+
+**Does not:** ship IQUNIX trademarks or official assets (icons are an original B&W “EZ” mark); reverse-engineer protocols or firmware; operate ez.iqunix.com.
+
+### Develop / publish
 
 ```bat
 npm install
@@ -162,13 +148,9 @@ npm run dist
 
 Output: `dist\EZ Desktop Shell-<version>-portable.exe`.
 
-### Publishing
+Bump `package.json` `version`, build, push source (no `dist/` / `node_modules/`), create a bilingual Release with a `*-portable.exe` asset, tag `vX.Y.Z`.
 
-Repo and first release are live: [`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell), [`v1.1.1`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1).
-
-For later versions: bump `package.json` `version`, `npm run dist`, push source (no `dist/` / `node_modules/`), create a **bilingual** Release with a `*-portable.exe` asset (name must contain `portable.exe`), tag `vX.Y.Z`.
-
-### Legal notice (summary)
+### Legal notice
 
 **This is not legal advice.**
 
