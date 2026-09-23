@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>等待键盘</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #e8e8e8;
+    }
+    main { padding: 22px 22px 18px; }
+    h1 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+    p { margin: 0 0 8px; color: #a3a3a3; font-size: 13px; line-height: 1.5; }
+    button {
+      margin-top: 14px;
+      background: #e8e8e8;
+      color: #0a0a0a;
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>正在等待键盘</h1>
+    <p>还没有检测到名称包含 IQUNIX 或 EZ 的设备。请用数据线连接键盘，检测到后会自动选择。</p>
+    <p>其他 HID 设备会忽略。最多等待 30 秒，也可点取消或关闭窗口。</p>
+    <button type="button" id="cancel">取消</button>
+  </main>
+  <script>
+    document.getElementById('cancel').addEventListener('click', function () {
+      if (window.ezPrompt) window.ezPrompt.cancel();
+    });
+  </script>
+</body>
+</html>

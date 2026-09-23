@@ -26,6 +26,9 @@ Desktop.ini
 .env.*
 *.local
 
+# One-off helper that reads local git credentials
+_patch_release.py
+
 # Electron / packaging leftovers
 *.exe
 *.blockmap
