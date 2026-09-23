@@ -11,9 +11,9 @@ Unofficial portable Electron shell for the IQUNIX EZ web keyboard configurator.
 | --- | --- |
 | GitHub | https://github.com/leocodelab/ez-desktop-shell |
 | Releases | https://github.com/leocodelab/ez-desktop-shell/releases |
-| Latest release | [v1.1.0](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.0) |
+| Latest release | [v1.1.1](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1) |
 | Product name | EZ Desktop Shell |
-| Version | 1.1.0 |
+| Version | 1.1.1 |
 | Platform | Windows x64 portable (`.exe`) |
 | Upstream site | https://ez.iqunix.com/ |
 | License | MIT + project notices below |
@@ -41,7 +41,7 @@ Unofficial portable Electron shell for the IQUNIX EZ web keyboard configurator.
 
 ### 如何使用（另一台电脑）
 
-1. 从 [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) 下载便携包（文件名含 `portable.exe`；GitHub 可能把空格显示成点号，例如 `EZ.Desktop.Shell-1.1.0-portable.exe`）。
+1. 从 [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) 下载便携包（文件名含 `portable.exe`；GitHub 可能把空格显示成点号，例如 `EZ.Desktop.Shell-1.1.1-portable.exe`）。
 2. 放到任意目录，双击运行；若触发 SmartScreen，选择「仍要运行」。
 3. 需能访问 `https://ez.iqunix.com/`。
 
@@ -74,7 +74,7 @@ npm run dist
 
 ### 发布到 GitHub
 
-仓库与首个 Release 已就绪：[`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell)、[`v1.1.0`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.0)。
+仓库与首个 Release 已就绪：[`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell)、[`v1.1.1`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1)。
 
 后续版本建议流程：
 
@@ -146,7 +146,7 @@ A **thin desktop shell** that opens the [IQUNIX EZ web configurator](https://ez.
 
 ### Use on another PC
 
-1. Download the portable build from [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) (filename contains `portable.exe`; GitHub may show spaces as dots, e.g. `EZ.Desktop.Shell-1.1.0-portable.exe`).
+1. Download the portable build from [Releases](https://github.com/leocodelab/ez-desktop-shell/releases) (filename contains `portable.exe`; GitHub may show spaces as dots, e.g. `EZ.Desktop.Shell-1.1.1-portable.exe`).
 2. Run it from any folder (SmartScreen may require “Run anyway”).
 3. Network access to `https://ez.iqunix.com/` is required.
 
@@ -164,7 +164,7 @@ Output: `dist\EZ Desktop Shell-<version>-portable.exe`.
 
 ### Publishing
 
-Repo and first release are live: [`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell), [`v1.1.0`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.0).
+Repo and first release are live: [`leocodelab/ez-desktop-shell`](https://github.com/leocodelab/ez-desktop-shell), [`v1.1.1`](https://github.com/leocodelab/ez-desktop-shell/releases/tag/v1.1.1).
 
 For later versions: bump `package.json` `version`, `npm run dist`, push source (no `dist/` / `node_modules/`), create a **bilingual** Release with a `*-portable.exe` asset (name must contain `portable.exe`), tag `vX.Y.Z`.
 

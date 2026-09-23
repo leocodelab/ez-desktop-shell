@@ -16,7 +16,7 @@ git push -u origin main
 
 1. 确认 `package.json` 的 `version`
 2. `npm run dist` → `dist\EZ Desktop Shell-<version>-portable.exe`
-3. 新建 Release，Tag 如 `v1.1.0`；**说明建议中英双语**
+3. 新建 Release，Tag 如 `v1.1.1`；**说明建议中英双语**
 4. 上传 `*-portable.exe`（需含 `portable.exe`；GitHub 可能把空格显示成点）
 
 不要提交 `node_modules/`、`dist/`。
