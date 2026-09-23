@@ -214,7 +214,7 @@ function trayIconPath() {
     scale = 1;
   }
   const target = Math.round(16 * scale);
-  const sizes = [16, 20, 24, 32, 48, 64];
+  const sizes = [16, 20, 24, 32, 40, 48, 64];
   let best = sizes[0];
   let bestDist = Math.abs(best - target);
   for (const s of sizes) {
@@ -228,20 +228,51 @@ function trayIconPath() {
   if (sized) return sized;
   return firstExisting([
     ...assetCandidates('icon-32.png'),
+    ...assetCandidates('icon-40.png'),
     ...assetCandidates('icon-16.png'),
     ...assetCandidates('icon.png'),
     ...assetCandidates('icon.ico')
   ]);
 }
 
+function readIconPng(size) {
+  const p = firstExisting(assetCandidates(`icon-${size}.png`));
+  if (!p) return null;
+  try {
+    return fs.readFileSync(p);
+  } catch {
+    return null;
+  }
+}
+
 function createNativeIcon() {
-  const p = iconPath();
+  // Prefer a sharp PNG for the window; ICO is mainly for the packaged exe.
+  const preferred = firstExisting([
+    ...assetCandidates('icon-256.png'),
+    ...assetCandidates('icon-128.png'),
+    ...assetCandidates('icon.png'),
+    ...assetCandidates('icon.ico')
+  ]);
+  const p = preferred || iconPath();
   if (!p) return nativeImage.createEmpty();
   const img = nativeImage.createFromPath(p);
   return img.isEmpty() ? nativeImage.createEmpty() : img;
 }
 
 function createTrayIcon() {
+  const multi = nativeImage.createEmpty();
+  for (const size of [16, 20, 24, 32, 40, 48]) {
+    const buffer = readIconPng(size);
+    if (!buffer) continue;
+    multi.addRepresentation({
+      scaleFactor: size / 16,
+      width: size,
+      height: size,
+      buffer
+    });
+  }
+  if (!multi.isEmpty()) return multi;
+
   const p = trayIconPath();
   if (!p) return nativeImage.createEmpty();
   let img = nativeImage.createFromPath(p);
@@ -290,9 +321,10 @@ function isOfflinePage(url) {
   }
 }
 
-/** 主文档只允许配置器、本地离线页，以及窗口创建时的 about:blank。 */
+/** 主文档只允许配置器、本地离线页、等待键盘页，以及窗口创建时的 about:blank。 */
 function isAllowedNavigation(url) {
   if (!url || url === 'about:blank') return true;
+  if (url.startsWith('data:text/html')) return true;
   if (isOfflinePage(url)) return true;
   return isTrustedConfiguratorUrl(url);
 }
@@ -509,7 +541,55 @@ function openHidWait(token) {
   win.once('ready-to-show', () => {
     if (!win.isDestroyed()) win.show();
   });
-  win.loadFile(path.join(__dirname, 'hid-wait.html'));
+  win.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(hidWaitHtml())}`);
+}
+
+function hidWaitHtml() {
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline';" />
+  <title>等待键盘</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #e8e8e8;
+      overflow: hidden;
+    }
+    main { padding: 22px 22px 18px; }
+    h1 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+    p { margin: 0 0 8px; color: #a3a3a3; font-size: 13px; line-height: 1.5; }
+    button {
+      margin-top: 14px;
+      background: #e8e8e8;
+      color: #0a0a0a;
+      border: 0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>正在等待键盘</h1>
+    <p>还没有检测到名称包含 IQUNIX 或 EZ 的设备。请用数据线连接键盘，检测到后会自动选择。</p>
+    <p>其他 HID 设备会忽略。最多等待 30 秒，也可点取消或关闭窗口。</p>
+    <button type="button" id="cancel">取消</button>
+  </main>
+  <script>
+    document.getElementById('cancel').addEventListener('click', function () {
+      if (window.ezPrompt) window.ezPrompt.cancel();
+    });
+  </script>
+</body>
+</html>`;
 }
 
 function rememberFoundDevice(device) {
@@ -847,6 +927,12 @@ function buildTrayMenu() {
   ]);
 }
 
+function refreshTrayIcon() {
+  if (!tray) return;
+  const image = createTrayIcon();
+  if (!image.isEmpty()) tray.setImage(image);
+}
+
 function createTray() {
   const image = createTrayIcon();
   tray = new Tray(image.isEmpty() ? nativeImage.createEmpty() : image);
@@ -858,6 +944,8 @@ function createTray() {
   tray.on('right-click', () => {
     tray.setContextMenu(buildTrayMenu());
   });
+  // DPI / 显示器变化时换一套匹配像素尺寸的图标，避免被系统拉伸发糊。
+  screen.on('display-metrics-changed', refreshTrayIcon);
 }
 
 ipcMain.on('ez-prompt-cancel', (event) => {

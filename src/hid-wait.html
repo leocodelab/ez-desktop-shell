@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline';" />
   <title>等待键盘</title>
   <style>
     :root { color-scheme: dark; }
@@ -11,6 +12,7 @@
       font-family: "Segoe UI", system-ui, sans-serif;
       background: #0a0a0a;
       color: #e8e8e8;
+      overflow: hidden;
     }
     main { padding: 22px 22px 18px; }
     h1 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }

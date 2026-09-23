@@ -74,7 +74,7 @@ def make_icon(size):
     draw_ez_vector(bd, big)
     return big_img.resize((size, size), Image.Resampling.LANCZOS)
 
-sizes = [16, 20, 24, 32, 48, 64, 128, 256, 512]
+sizes = [16, 20, 24, 32, 40, 48, 64, 128, 256, 512]
 images = {}
 for s in sizes:
     images[s] = make_icon(s)
@@ -82,7 +82,7 @@ for s in sizes:
 images[512].save(OUT / 'icon.png')
 
 # Proper multi-PNG ICO
-ico_sizes = [16, 24, 32, 48, 64, 128, 256]
+ico_sizes = [16, 20, 24, 32, 40, 48, 64, 128, 256]
 entries = []
 for s in ico_sizes:
     buf = BytesIO(); images[s].save(buf, format='PNG'); entries.append((s, buf.getvalue()))
@@ -94,7 +94,7 @@ for s, data in entries:
     dir_entries += struct.pack('<BBBBHHII', w, h, 0, 0, 1, 32, len(data), offset)
     blobs += data; offset += len(data)
 (OUT / 'icon.ico').write_bytes(header + dir_entries + blobs)
-(OUT / 'README.md').write_text('Black squircle + soft white EZ. Multi-size PNG/ICO; 16-32 pixel-tuned for tray/taskbar.\n', encoding='utf-8')
+(OUT / 'README.md').write_text('Black squircle + soft white EZ. Multi-size PNG/ICO; 16-32 pixel-tuned for tray/taskbar, with 20/24/40px assets for Windows DPI scaling.\n', encoding='utf-8')
 print('ok ico', (OUT / 'icon.ico').stat().st_size)
 for s in sizes:
     print(s, (OUT / f'icon-{s}.png').stat().st_size)
